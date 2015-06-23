@@ -11,15 +11,15 @@ Much thanks to [Casey Bisson](https://github.com/misterbisson) who created the o
 It can be run on its own simply via:
 
 ```
-docker run -d  -p 8400:8400 -p 8500:8500 -p 8600:53/udp --name consul progrium/consul -server -bootstrap -ui-dir /ui
-docker run -d --name cb1 --link consul:consul -p 8091:8091 corbinu/consul-couchbase
+docker run -d  -p 8400 -p 8500 -p 8600 --name consul progrium/consul -server -bootstrap -ui-dir /ui
+docker run -d --name cb1 --link consul:consul -p 8091 corbinu/consul-couchbase
 docker run -d --name cb2 --link consul:consul corbinu/consul-couchbase
 
 docker exec -it cb1 consul-couchbase-bootstrap bootstrap
 ```
 
-Consul will UI will be available on port 8500
-Couchbase Dashboard will be on port 8091
+Consul will UI will be available on port mapped to 8500
+Couchbase Dashboard will be on port mapped to 8091
 
 ## Demos
 
