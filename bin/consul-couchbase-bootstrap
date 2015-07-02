@@ -14,8 +14,6 @@ else
     export MYIPPUBLIC=$MYIPPRIVATE
 fi
 
-echo $MYIPPRIVATE
-echo $MYIPPUBLIC
 export MYMEMORY=$(free -m | grep -o "Mem:\s*[0-9]*" | grep -o "[0-9]*")
 export MYCPUS=$(nproc)
 export MYCPUS=$(($MYCPUS>12?$(($MYMEMORY/3072)):$MYCPUS))
