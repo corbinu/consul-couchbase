@@ -5,15 +5,15 @@
 #
 
 # Couchbase-related environment variables
-export MYCPUS=$(nproc)
-export MYMEMORY=$(free -m | grep -o "Mem:\s*[0-9]*" | grep -o "[0-9]*")
-export MYCPUS=$(($MYCPUS>12?$(($MYMEMORY/3072)):$MYCPUS))
-export MYCPUS=$(($MYCPUS>1?$MYCPUS:1))
+export NUM_CPUS=$(nproc)
+export AMOUNT_MEMORY=$(free -m | grep -o "Mem:\s*[0-9]*" | grep -o "[0-9]*")
+export NUM_CPUS=$(($NUM_CPUS>12?$(($AMOUNT_MEMORY/3072)):$NUM_CPUS))
+export NUM_CPUS=$(($NUM_CPUS>1?$NUM_CPUS:1))
 export BUCKET=$1
 
 # limit the number of threads for various operations on this bucket
 # See http://docs.couchbase.com/admin/admin/CLI/CBepctl/cbepctl-threadpool-tuning.html for more details
-/opt/couchbase/bin/cbepctl 127.0.0.1:11210 -b $BUCKET set flush_param max_num_writers $(($MYCPUS>1?$MYCPUS/2:1))
-/opt/couchbase/bin/cbepctl 127.0.0.1:11210 -b $BUCKET set flush_param max_num_readers $(($MYCPUS>1?$MYCPUS/2:1))
+/opt/couchbase/bin/cbepctl 127.0.0.1:11210 -b $BUCKET set flush_param max_num_writers $(($NUM_CPUS>1?$NUM_CPUS/2:1))
+/opt/couchbase/bin/cbepctl 127.0.0.1:11210 -b $BUCKET set flush_param max_num_readers $(($NUM_CPUS>1?$NUM_CPUS/2:1))
 /opt/couchbase/bin/cbepctl 127.0.0.1:11210 -b $BUCKET set flush_param max_num_auxio 1
 /opt/couchbase/bin/cbepctl 127.0.0.1:11210 -b $BUCKET set flush_param max_num_nonio 1

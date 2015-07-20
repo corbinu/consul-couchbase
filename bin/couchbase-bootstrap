@@ -102,7 +102,21 @@ echo '#'
 echo '# Checking Consul availability'
 echo '#'
 
-curl -fs --retry 7 --retry-delay 3 http://consul:8500/v1/agent/services &> /dev/null
+if [[ $CONSUL_IP && ${CONSUL_IP-x} ]]
+    then
+    export CONSUL_IP=$CONSUL_IP
+else
+    export CONSUL_IP=consul
+fi
+
+if [[ $CONSUL_PORT && ${CONSUL_PORT-x} ]]
+    then
+    export CONSUL_PORT=$CONSUL_PORT
+else
+    export CONSUL_PORT=8500
+fi
+
+curl -fs --retry 7 --retry-delay 3 http://$CONSUL_IP:$CONSUL_PORT/v1/agent/services &> /dev/null
 if [ $? -ne 0 ]
 then
     echo '#'
@@ -241,7 +255,7 @@ else
     while [ $CLUSTERFOUND != 1 ]; do
         echo -n '.'
 
-        CLUSTERIP=$(curl -L -s -f http://consul:8500/v1/catalog/service/couchbase | json -aH ServiceAddress | head -1)
+        CLUSTERIP=$(curl -L -s -f http://$CONSUL_IP:$CONSUL_PORT/v1/catalog/service/couchbase | json -aH ServiceAddress | head -1)
         if [ -n "$CLUSTERIP" ]
         then
             let CLUSTERFOUND=1
@@ -296,7 +310,6 @@ else
     done
 fi
 
-
 echo
 echo '#'
 echo '# Confirming cluster health...'
@@ -323,6 +336,6 @@ echo '#'
 echo '# Registering service instance'
 echo '#'
 
-curl -f --retry 7 --retry-delay 3 http://consul:8500/v1/agent/service/register -d "$(printf '{"ID":"couchbase-%s","Name":"couchbase","Address":"%s"}' $PRIVATE_IP $PRIVATE_IP)"
+curl -f --retry 7 --retry-delay 3 http://$CONSUL_IP:$CONSUL_PORT/v1/agent/service/register -d "$(printf '{"ID":"couchbase-%s","Name":"couchbase","Address":"%s","Port":8091}' $PRIVATE_IP $PRIVATE_IP)"
 
 installed
