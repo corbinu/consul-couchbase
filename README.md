@@ -15,7 +15,7 @@ docker run -d  -p 8400 -p 8500 -p 8600 --name consul progrium/consul -server -bo
 docker run -d --name cb1 --link consul:consul -p 8091 corbinu/consul-couchbase
 docker run -d --name cb2 --link consul:consul corbinu/consul-couchbase
 
-docker exec -it cb1 consul-couchbase-bootstrap bootstrap
+docker exec -it cb1 couchbase-bootstrap bootstrap
 ```
 
 Consul will UI will be available on port mapped to 8500
