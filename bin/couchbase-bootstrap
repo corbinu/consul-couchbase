@@ -255,7 +255,7 @@ else
     while [ $CLUSTERFOUND != 1 ]; do
         echo -n '.'
 
-        CLUSTERIP=$(curl -L -s -f http://$CONSUL_IP:$CONSUL_PORT/v1/catalog/service/couchbase | json -aH ServiceAddress | head -1)
+        CLUSTERIP=$(curl -L -s -f http://$CONSUL_IP:$CONSUL_PORT/v1/catalog/service/couchbase | json -aH ServiceAddress | tail -1)
         if [ -n "$CLUSTERIP" ]
         then
             let CLUSTERFOUND=1
