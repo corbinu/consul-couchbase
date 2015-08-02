@@ -173,15 +173,15 @@ done
 echo
 
 export CB_SERVICES=""
-if [ "$COUCHBASE_SERVICE_INDEX" == true ];
+if [ "$COUCHBASE_SERVICE_INDEX" == "true" ];
     then
     CB_SERVICES+=",index"
 fi
-if [ "$COUCHBASE_SERVICE_QUERY" == true ];
+if [ "$COUCHBASE_SERVICE_QUERY" == "true" ];
     then
     CB_SERVICES+=",query"
 fi
-if [ "$COUCHBASE_SERVICE_DATA" == true ];
+if [ "$COUCHBASE_SERVICE_DATA" == "true" ];
     then
     CB_SERVICES+=",data"
 fi
