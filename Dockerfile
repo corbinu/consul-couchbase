@@ -1,7 +1,7 @@
 #
 # Consul Couchbase
 #
-FROM 		couchbase/server:enterprise-4.0.0-3508
+FROM 		couchbase/server:enterprise-4.0.0-rc0
 MAINTAINER 	Corbin Uselton <corbinu@decimal.io>
 
 # installed Node.js, similar to https://github.com/joyent/docker-node/blob/428d5e69763aad1f2d8f17c883112850535e8290/0.12/Dockerfile
