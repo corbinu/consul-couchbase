@@ -336,6 +336,6 @@ echo '#'
 echo '# Registering service instance'
 echo '#'
 
-curl -f --retry 7 --retry-delay 3 http://$CONSUL_IP:$CONSUL_PORT/v1/agent/service/register -d "$(printf '{"ID":"couchbase-%s","Name":"couchbase","Address":"%s","Port":8091, "Check":{"HTTP": "http://localhost:8091/pools/default", "Interval": "10s"}}' $PRIVATE_IP $PRIVATE_IP)"
+curl -f --retry 7 --retry-delay 3 http://$CONSUL_IP:$CONSUL_PORT/v1/agent/service/register -d "$(printf '{"ID":"couchbase-%s","Name":"couchbase","Address":"%s","Port":8091, "Check":{"HTTP": "http://localhost:8091/index.html", "Interval": "10s"}}' $PRIVATE_IP $PRIVATE_IP)"
 
 installed
