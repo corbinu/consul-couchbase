@@ -20,7 +20,7 @@ RUN echo "APT::Install-Recommends 0;" >> /etc/apt/apt.conf.d/01norecommends \
 RUN rm -rf /var/lib/apt/lists/*
 
 ENV NODE_VERSION 0.12.7
-ENV NPM_VERSION 2.13.3
+ENV NPM_VERSION 2.14.0
 
 ENV CB_USERNAME Administrator
 ENV CB_PASSWORD password
