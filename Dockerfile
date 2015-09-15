@@ -8,14 +8,7 @@ MAINTAINER 	Corbin Uselton <corbinu@decimal.io>
 RUN gpg --keyserver pool.sks-keyservers.net --recv-keys 7937DFD2AB06298B2293C3187D33FF9D0246406D 114F43EE0176B71C7BC219DD50A3051F888C628D
 
 RUN echo "APT::Install-Recommends 0;" >> /etc/apt/apt.conf.d/01norecommends \
-    && echo "APT::Install-Suggests 0;" >> /etc/apt/apt.conf.d/01norecommends \
-    && apt-get update \
-    && apt-get install -y python-software-properties \
-    && add-apt-repository -y ppa:costamagnagianfranco/ettercap-stable-backports \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends curl \
-    && apt-get remove -y python-software-properties \
-    && apt-get autoremove -y
+    && echo "APT::Install-Suggests 0;" >> /etc/apt/apt.conf.d/01norecommends
 
 RUN rm -rf /var/lib/apt/lists/*
 
